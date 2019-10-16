@@ -41,7 +41,7 @@ In this exercise, we'll build the beginnings of a DAL with some ORM-like functio
 In order to interact with our DAL, let's tie everything together with one common root, a `SalesEngine` instance:
 
 ```ruby
-se = SalesEngine.from_csv({
+sales_engine = SalesEngine.from_csv({
   :items     => "./data/items.csv",
   :merchants => "./data/merchants.csv",
 })
@@ -49,8 +49,8 @@ se = SalesEngine.from_csv({
 
 From there we can find the child instances:
 
-*   `items` returns an instance of `ItemCollection` with all the item instances loaded.
-*   `merchants` returns an instance of `MerchantCollection` with all the merchant instances loaded.
+*   `items` returns an array of all items (This method will probably (definitely) end up referencing an instance of `ItemCollection`)
+*   `merchants` returns an array of all merchants (This method will probably (definitely) end up referencing an instance of `MerchantCollection`)
 
 ### `MerchantCollection`
 
@@ -63,12 +63,12 @@ instances. It offers the following methods:
 The data can be found in `data/merchants.csv` so the instance is created and used like this:
 
 ```ruby
-se = SalesEngine.from_csv({
+sales_engine = SalesEngine.from_csv({
   :items     => "./data/items.csv",
   :merchants => "./data/merchants.csv",
 })
 
-merchant_collection = se.merchants
+merchant_collection = sales_engine.merchants
 merchant = merchant_collection.find(34)
 # => <Merchant>
 ```
@@ -83,7 +83,7 @@ The merchant is one of the critical concepts in our data hierarchy.
 We create an instance like this:
 
 ```ruby
-m = Merchant.new({:id => 5, :name => "Turing School"})
+merchant = Merchant.new({:id => 5, :name => "Turing School"})
 ```
 
 ### `ItemCollection`
@@ -99,13 +99,13 @@ It offers the following methods:
 It's initialized and used like this:
 
 ```ruby
-se = SalesEngine.from_csv({
+sales_engine = SalesEngine.from_csv({
   :items     => "./data/items.csv",
   :merchants => "./data/merchants.csv"
 })
 
-merchant_collection = se.merchants
-item_collection = se.items
+merchant_collection = sales_engine.merchants
+item_collection = sales_engine.items
 merchant = merchant_collection.find(34)
 items = item_collection.where(merchant.id)
 # => [<Item>, <Item>, ...., <Item>]
@@ -124,7 +124,7 @@ The Item instance offers the following methods:
 We create an instance like this:
 
 ```ruby
-i = Item.new({
+item = Item.new({
   :id          => 1,
   :name        => "Pencil",
   :description => "You can use it to write things",
@@ -138,13 +138,13 @@ i = Item.new({
 Now that you can search for a merchant by id, and search for items by merchant id, let's change our Item's `where` method to satisfy the following interaction pattern:
 
 ```ruby
-se = SalesEngine.from_csv({
+sales_engine = SalesEngine.from_csv({
   :items     => "./data/items.csv",
   :merchants => "./data/merchants.csv"
 })
 
-merchant_collection = se.merchants
-item_collection = se.items
+merchant_collection = sales_engine.merchants
+item_collection = sales_engine.items
 all_pencils = item_collection.where({merchant_id: 34})
 # => [<Item>, <Item>, <Item>]
 all_pencils = item_collection.where({name: 'Pencil'})
