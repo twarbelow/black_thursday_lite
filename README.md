@@ -2,6 +2,11 @@
 
 A business is only as smart as its data. Let's build a system to manage our data and execute business intelligence queries against the data from a typical e-commerce business.
 
+### Deliverable
+
+Please submit PR by 12, noon.
+
+
 Project Overview
 -----------------
 
@@ -174,4 +179,3 @@ You have now created your very own DAL/ORM!!  Going into Mod2, you will start us
 
 * [What is an ORM](https://blog.bitsrc.io/what-is-an-orm-and-why-you-should-use-it-b2b6f75f5e2a)
 * [ActiveRecord Docs](https://guides.rubyonrails.org/active_record_basics.html)
-
