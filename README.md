@@ -2,9 +2,6 @@
 
 A business is only as smart as its data. Let's build a system to manage our data and execute business intelligence queries against the data from a typical e-commerce business.
 
-### Deliverable
-Make pull request to remote by 4pm today
-
 Project Overview
 -----------------
 
